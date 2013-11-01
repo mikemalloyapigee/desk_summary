@@ -1,0 +1,50 @@
+.row
+  %aside.span6
+    %section
+      %dl.dl-horizontal  
+        %dt
+          %strong
+            Name  
+        %dd
+          = @test_case_result.test_case.name
+      %dl.dl-horizontal  
+        %dt
+          %strong
+            Result 
+        %dd
+          - if @test_case_result.result
+            .text-success
+              Pass
+          - else
+            .text-error
+              Fail
+      %dl.dl-horizontal  
+        %dt
+          %strong
+            Signature 
+        %dd
+          - unless @test_case_result.verification_signature.blank?
+            = @test_case_result.verification_signature
+          - else
+            None Given
+            
+  .span6
+    - http_response, *http_headers = @test_case_result.response_headers.split(/[\r\n]+/).map(&:strip)
+    %h4
+      Response
+    = http_response
+    %h4
+      Http Headers
+    - http_headers = Hash[http_headers.flat_map{ |s| s.scan(/^(\S+): (.+)/) }]
+    - http_headers.keys.each do |key|
+      = key.to_s + ":\t" + http_headers[key].to_s
+    %h4
+      Response
+    - if @test_case_result.body.length > 200  
+      = @test_case_result.body[0..200]
+      %p
+        (response was longer than 200 characters)
+      = link_to t('.view body', :default => t("helpers.links.view")),
+                    display_response_body_test_case_result_path(@test_case_result), :class => 'btn'
+    - else
+      = @test_case_result.body

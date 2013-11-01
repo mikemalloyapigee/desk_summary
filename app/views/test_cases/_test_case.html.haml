@@ -1,0 +1,16 @@
+%tr
+  %td
+    = link_to test_case.id, test_case_path(test_case) 
+  %td
+    - unless test_case.company.blank?
+      = test_case.company.name
+  %td
+    = test_case.name 
+  %td
+    = link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_test_case_path(test_case), :class => 'btn btn-mini'
+    = link_to t('.destroy', :default => t("helpers.links.destroy")),
+                test_case_path(test_case),
+                :method => :delete,
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-mini btn-danger'

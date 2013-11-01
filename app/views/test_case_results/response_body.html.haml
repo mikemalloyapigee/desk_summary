@@ -1,0 +1,13 @@
+.page-header
+  %h3
+    = t '.title', :default => "Response Body"
+  .center
+    %p
+      = link_to t('.view body', :default => t("helpers.links.back")),
+                  @test_case_result, :class => 'btn'
+  .content
+    = @test_case_result.body
+  .center
+    %p
+      = link_to t('.view body', :default => t("helpers.links.back")),
+                  @test_case_result, :class => 'btn'

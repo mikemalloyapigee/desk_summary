@@ -1,0 +1,32 @@
+
+= simple_form_for @test_case, :html => { class: 'form-horizontal' } do |f|
+  = f.input :name, input_html: { style: 'width: 250px'}
+  = f.association :company, { style: 'height: 40px; width: 400px'}
+  = f.input :uses_oauth, :label => "Uses OAuth"
+  = f.input :auth_url, input_html: { style: 'height: 40px; width: 400px'}
+  = f.input :auth_body, input_html: { style: 'height: 40px; width: 400px'}
+  = f.input :auth_headers, input_html: { style: 'height: 40px; width: 400px'}
+  #auth_header_table.center
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            Authorization Headers
+      %tbody
+  = f.input :request_type, collection: ["GET", "POST"], input_html: { style: 'height: 40px; width: 100px'}, default: "GET"
+  = f.input :request_url, input_html: { style: 'height: 40px; width: 400px'}
+  = f.input :request_body, input_html: { style: 'height: 40px; width: 400px'}
+  = f.input :request_headers, input_html: { style: 'height: 40px; width: 400px'}
+  #req_header_table.center
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            Request Headers
+      %tbody
+  = f.input :verification_signature, input_html: { style: 'height: 40px; width: 400px'}
+
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary' 
+    = link_to t('.cancel', :default => t("helpers.links.cancel")),
+                test_cases_path, :class => 'btn'

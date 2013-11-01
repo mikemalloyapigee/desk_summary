@@ -1,0 +1,23 @@
+- model_class = TestCase
+.page-header
+%h1
+  "Test Cases"
+    
+
+
+%table#test_case_table.display
+  %thead
+    %tr
+      %th
+        ID 
+      %th
+        Company
+      %th
+        Name 
+      %th
+        Actions
+  %tbody
+    = render @test_cases
+ 
+= link_to t('.mew', :default => t("helpers.links.new")),
+                new_test_case_path, :class => 'btn'

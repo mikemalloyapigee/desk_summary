@@ -1,0 +1,83 @@
+.page-header
+  %h1
+    = t '.title', :default => "Test Case Specifications"
+  %dl.dl-horizontal  
+    %dt
+      %strong
+        Name  
+    %dd
+      = @test_case.name
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Uses OAuth
+    %dd
+      = @test_case.uses_oauth
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Auth url 
+      %dd
+        = @test_case.auth_url
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Auth Headers 
+      %dd
+        - headers = parse_headers(@test_case.auth_headers)
+        - headers.each do |h|
+          %p
+            = h[:name] + ": " + h[:value]   
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Auth Body 
+      %dd
+        = @test_case.auth_body
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Request Type 
+      %dd
+        = @test_case.request_type      
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Request Url 
+      %dd
+        = @test_case.request_url         
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Request Body 
+      %dd
+        = @test_case.request_body
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Req Headers 
+      %dd
+        - headers = parse_headers(@test_case.request_headers)
+        - headers.each do |h|
+          %p
+            = h[:name] + ": " + h[:value]
+  %dl.dl-horizontal 
+    %dt
+      %strong
+        Signature 
+      %dd
+        = @test_case.verification_signature
+
+.form-actions
+  = link_to t('.back', :default => t("helpers.links.back")),
+              test_cases_path, :class => 'btn' 
+  = link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_test_case_path(@test_case), :class => 'btn'
+  = link_to t('.test', :default => t("helpers.links.test")),
+              run_test_test_case_path(@test_case), 
+              :class => 'btn'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")),
+              test_case_path(@test_case),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger'
